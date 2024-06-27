@@ -104,6 +104,7 @@ Used to represent a webhook.
 Creates a new webhook and returns a [webhook](#DOCS_RESOURCES_WEBHOOK/webhook-object) object on success. Requires the `MANAGE_WEBHOOKS` permission. Fires a [Webhooks Update](#DOCS_TOPICS_GATEWAY_EVENTS/webhooks-update) Gateway event.
 
 An error will be returned if a webhook name (`name`) is not valid. A webhook name is valid if:
+
 - It does not contain the substrings `clyde` or `discord` (case-insensitive)
 - It follows the nickname guidelines in the [Usernames and Nicknames](#DOCS_RESOURCES_USER/usernames-and-nicknames) documentation, with an exception that webhook names can be up to 80 characters
 
@@ -181,10 +182,10 @@ Refer to [Uploading Files](#DOCS_REFERENCE/uploading-files) for details on attac
 
 ###### Query String Params
 
-| Field     | Type      | Description                                                                                                                                                                                  | Required |
-|-----------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| wait      | boolean   | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
-| thread_id | snowflake | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived.                                                                              | false    |
+| Field     | Type                                             | Description                                                                                                                                                                                  | Required |
+|-----------|--------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| wait      | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response, and returns the created message body (defaults to `false`; when `false` a message that is not saved does not return an error) | false    |
+| thread_id | snowflake                                        | Send a message to the specified thread within a webhook's channel. The thread will automatically be unarchived.                                                                              | false    |
 
 ###### JSON/Form Params
 
@@ -219,10 +220,10 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 
 ###### Query String Params
 
-| Field     | Type      | Description                                                                                                                                           | Required |
-|-----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
-| wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
+| Field     | Type                                             | Description                                                                                                                                           | Required |
+|-----------|--------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| thread_id | snowflake                                        | id of the thread to send the message in                                                                                                               | false    |
+| wait      | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Execute GitHub-Compatible Webhook % POST /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/github
 
@@ -230,10 +231,10 @@ Refer to [Slack's documentation](https://api.slack.com/incoming-webhooks) for mo
 
 ###### Query String Params
 
-| Field     | Type      | Description                                                                                                                                           | Required |
-|-----------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
-| thread_id | snowflake | id of the thread to send the message in                                                                                                               | false    |
-| wait      | boolean   | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
+| Field     | Type                                             | Description                                                                                                                                           | Required |
+|-----------|--------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|----------|
+| thread_id | snowflake                                        | id of the thread to send the message in                                                                                                               | false    |
+| wait      | [boolean](#DOCS_REFERENCE/boolean-query-strings) | waits for server confirmation of message send before response (defaults to `true`; when `false` a message that is not saved does not return an error) | false    |
 
 ## Get Webhook Message % GET /webhooks/{webhook.id#DOCS_RESOURCES_WEBHOOK/webhook-object}/{webhook.token#DOCS_RESOURCES_WEBHOOK/webhook-object}/messages/{message.id#DOCS_RESOURCES_CHANNEL/message-object}
 

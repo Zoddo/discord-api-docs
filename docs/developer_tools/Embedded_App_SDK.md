@@ -1,6 +1,6 @@
 # Embedded App SDK Reference
 
-> preview 
+> preview
 > Creating Activities is currently available as a [Public Developer Preview](#DOCS_ACTIVITIES_OVERVIEW/public-developer-preview).
 
 The Embedded App SDK handles making RPC calls between your application and Discord. It is designed to assist developers in developing interactive Activities like games.
@@ -36,6 +36,7 @@ const discordSdk = new DiscordSDK(DISCORD_CLIENT_ID);
 | [ready](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/ready)             | Resolves when your app has successfully connected to the Discord client |
 | [subscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/subscribe)     | Subscribe to an Embedded App SDK Event                                  |
 | [unsubscribe](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/unsubscribe) | Unsubscribe to an Embedded App SDK Event                                |
+| [close](#DOCS_DEVELOPER_TOOLS_EMBEDDED_APP_SDK/close)             | Close an Embedded App                                                   |
 
 ### ready()
 
@@ -99,6 +100,40 @@ No scopes required
 
 ```js
 await discordSdk.unsubscribe("SDK_EVENT_NAME");
+```
+
+---
+
+### close()
+
+Used to close your app with a specified code and reason.
+
+#### Supported Platforms
+| Web | iOS | Android |
+|-----|-----|---------|
+| ✅   | ✅   | ✅       |
+
+#### Required Scopes
+
+No scopes required
+
+#### RPC Close Codes
+| Name              | Code |
+|-------------------|------|
+| CLOSE_NORMAL      | 1000 |
+| CLOSE_UNSUPPORTED | 1003 |
+| CLOSE_ABNORMAL    | 1006 |
+| INVALID_CLIENTID  | 4000 |
+| INVALID_ORIGIN    | 4001 |
+| RATELIMITED       | 4002 |
+| TOKEN_REVOKED     | 4003 |
+| INVALID_VERSION   | 4004 |
+| INVALID_ENCODING  | 4005 |
+
+#### SDK Usage
+
+```js
+discordSdk.close(RPCCloseCodes.CLOSE_NORMAL, "You exited from app");
 ```
 
 ---
@@ -290,7 +325,7 @@ await discordSdk.commands.getChannelPermissions();
 
 ### getEntitlements()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -339,7 +374,7 @@ await discordSdk.commands.getPlatformBehaviors();
 
 ### getSkus()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -476,7 +511,7 @@ No scopes required
 
 ```js
 await discordSdk.commands.setConfig({
-  user_interactive_pip: true
+  use_interactive_pip: true
 })
 ```
 
@@ -493,15 +528,17 @@ Locks the application to specific orientations in each of the supported layout m
 
 #### Required Scopes
 
-- guilds.members.read
+No scopes required
 
 #### Usage
 
 ```js
+import {Common} from '@discord/embedded-app-sdk';
+
 await discordSdk.commands.setOrientationLockState({ 
-  lock_state: 'landscape', 
-  picture_in_picture_lock_state: 'landscape', 
-  grid_lock_state: 'unlocked'
+  lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+  picture_in_picture_lock_state: Common.OrientationLockStateTypeObject.LANDSCAPE,
+  grid_lock_state: Common.OrientationLockStateTypeObject.UNLOCKED
 });
 ```
 
@@ -509,7 +546,7 @@ await discordSdk.commands.setOrientationLockState({
 
 ### startPurchase()
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview
 
 ---
@@ -785,5 +822,5 @@ No scopes required
 
 ### ENTITLEMENT_CREATE
 
-> preview 
+> preview
 > Coming soon! Not available during Developer Preview

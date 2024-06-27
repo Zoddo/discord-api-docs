@@ -111,14 +111,14 @@ Guilds in Discord represent an isolated collection of users and channels, and ar
 
 ###### System Channel Flags
 
-| Flag                                                     | Value  | Description                                                   |
-|----------------------------------------------------------|--------|---------------------------------------------------------------|
-| SUPPRESS_JOIN_NOTIFICATIONS                              | 1 << 0 | Suppress member join notifications                            |
-| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | 1 << 1 | Suppress server boost notifications                           |
-| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | 1 << 2 | Suppress server setup tips                                    |
-| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | 1 << 3 | Hide member join sticker reply buttons                        |
-| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | 1 << 4 | Suppress role subscription purchase and renewal notifications |
-| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | 1 << 5 | Hide role subscription sticker reply buttons                  |
+| Flag                                                     | Value    | Description                                                   |
+|----------------------------------------------------------|----------|---------------------------------------------------------------|
+| SUPPRESS_JOIN_NOTIFICATIONS                              | `1 << 0` | Suppress member join notifications                            |
+| SUPPRESS_PREMIUM_SUBSCRIPTIONS                           | `1 << 1` | Suppress server boost notifications                           |
+| SUPPRESS_GUILD_REMINDER_NOTIFICATIONS                    | `1 << 2` | Suppress server setup tips                                    |
+| SUPPRESS_JOIN_NOTIFICATION_REPLIES                       | `1 << 3` | Hide member join sticker reply buttons                        |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATIONS        | `1 << 4` | Suppress role subscription purchase and renewal notifications |
+| SUPPRESS_ROLE_SUBSCRIPTION_PURCHASE_NOTIFICATION_REPLIES | `1 << 5` | Hide role subscription sticker reply buttons                  |
 
 ###### Guild Features
 
@@ -342,20 +342,21 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Structure
 
-| Field                         | Type                                            | Description                                                                                                                                                                                                                          |
-|-------------------------------|-------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| user?                         | [user](#DOCS_RESOURCES_USER/user-object) object | the user this guild member represents                                                                                                                                                                                                |
-| nick?                         | ?string                                         | this user's guild nickname                                                                                                                                                                                                           |
-| avatar?                       | ?string                                         | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                   |
-| roles                         | array of snowflakes                             | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                                                                                                                     |
-| joined_at                     | ISO8601 timestamp                               | when the user joined the guild                                                                                                                                                                                                       |
-| premium_since?                | ?ISO8601 timestamp                              | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                              |
-| deaf                          | boolean                                         | whether the user is deafened in voice channels                                                                                                                                                                                       |
-| mute                          | boolean                                         | whether the user is muted in voice channels                                                                                                                                                                                          |
-| flags                         | integer                                         | [guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to `0`                                                                                                         |
-| pending?                      | boolean                                         | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
-| permissions?                  | string                                          | total permissions of the member in the channel, including overwrites, returned when in the interaction object                                                                                                                        |
-| communication_disabled_until? | ?ISO8601 timestamp                              | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
+| Field                         | Type                                                                                 | Description                                                                                                                                                                                                                          |
+|-------------------------------|--------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| user?                         | [user](#DOCS_RESOURCES_USER/user-object) object                                      | the user this guild member represents                                                                                                                                                                                                |
+| nick?                         | ?string                                                                              | this user's guild nickname                                                                                                                                                                                                           |
+| avatar?                       | ?string                                                                              | the member's [guild avatar hash](#DOCS_REFERENCE/image-formatting)                                                                                                                                                                   |
+| roles                         | array of snowflakes                                                                  | array of [role](#DOCS_TOPICS_PERMISSIONS/role-object) object ids                                                                                                                                                                     |
+| joined_at                     | ISO8601 timestamp                                                                    | when the user joined the guild                                                                                                                                                                                                       |
+| premium_since?                | ?ISO8601 timestamp                                                                   | when the user started [boosting](https://support.discord.com/hc/en-us/articles/360028038352-Server-Boosting-) the guild                                                                                                              |
+| deaf                          | boolean                                                                              | whether the user is deafened in voice channels                                                                                                                                                                                       |
+| mute                          | boolean                                                                              | whether the user is muted in voice channels                                                                                                                                                                                          |
+| flags                         | integer                                                                              | [guild member flags](#DOCS_RESOURCES_GUILD/guild-member-object-guild-member-flags) represented as a bit set, defaults to `0`                                                                                                         |
+| pending?                      | boolean                                                                              | whether the user has not yet passed the guild's [Membership Screening](#DOCS_RESOURCES_GUILD/membership-screening-object) requirements                                                                                               |
+| permissions?                  | string                                                                               | total permissions of the member in the channel, including overwrites, returned when in the interaction object                                                                                                                        |
+| communication_disabled_until? | ?ISO8601 timestamp                                                                   | when the user's [timeout](https://support.discord.com/hc/en-us/articles/4413305239191-Time-Out-FAQ) will expire and the user will be able to communicate in the guild again, null or a time in the past if the user is not timed out |
+| avatar_decoration_data?       | ?[avatar decoration data](#DOCS_RESOURCES_USER/avatar-decoration-data-object) object | data for the member's guild avatar decoration                                                                                                                                                                                        |
 
 > info
 > The field `user` won't be included in the member object attached to `MESSAGE_CREATE` and `MESSAGE_UPDATE` gateway events.
@@ -379,12 +380,12 @@ A partial [guild](#DOCS_RESOURCES_GUILD/guild-object) object. Represents an Offl
 
 ###### Guild Member Flags
 
-| Flag                  | Value  | Description                                           | Editable |
-|-----------------------|--------|-------------------------------------------------------|----------|
-| DID_REJOIN            | 1 << 0 | Member has left and rejoined the guild                | false    |
-| COMPLETED_ONBOARDING  | 1 << 1 | Member has completed onboarding                       | false    |
-| BYPASSES_VERIFICATION | 1 << 2 | Member is exempt from guild verification requirements | true     |
-| STARTED_ONBOARDING    | 1 << 3 | Member has started onboarding                         | false    |
+| Flag                  | Value    | Description                                           | Editable |
+|-----------------------|----------|-------------------------------------------------------|----------|
+| DID_REJOIN            | `1 << 0` | Member has left and rejoined the guild                | false    |
+| COMPLETED_ONBOARDING  | `1 << 1` | Member has completed onboarding                       | false    |
+| BYPASSES_VERIFICATION | `1 << 2` | Member is exempt from guild verification requirements | true     |
+| STARTED_ONBOARDING    | `1 << 3` | Member has started onboarding                         | false    |
 
 > info
 > BYPASSES_VERIFICATION allows a member who does not meet verification requirements to participate in a server.
@@ -589,57 +590,57 @@ Defines the criteria used to satisfy Onboarding constraints that are required fo
 
 ```json
 {
-    "guild_id": "960007075288915998",
-    "prompts": [
+  "guild_id": "960007075288915998",
+  "prompts": [
+    {
+      "id": "1067461047608422473",
+      "title": "What do you want to do in this community?",
+      "options": [
         {
-            "id": "1067461047608422473",
-            "title": "What do you want to do in this community?",
-            "options": [
-                {
-                    "id": "1067461047608422476",
-                    "title": "Chat with Friends",
-                    "description": "",
-                    "emoji": {
-                        "id": "1070002302032826408",
-                        "name": "chat",
-                        "animated": false
-                    },
-                    "role_ids": [],
-                    "channel_ids": [
-                        "962007075288916001"
-                    ]
-                },
-                {
-                    "id": "1070004843541954678",
-                    "title": "Get Gud",
-                    "description": "We have excellent teachers!",
-                    "emoji": {
-                        "id": null,
-                        "name": "😀",
-                        "animated": false
-                    },
-                    "role_ids": [
-                        "982014491980083211"
-                    ],
-                    "channel_ids": []
-                }
-            ],
-            "single_select": false,
-            "required": false,
-            "in_onboarding": true,
-            "type": 0
+          "id": "1067461047608422476",
+          "title": "Chat with Friends",
+          "description": "",
+          "emoji": {
+            "id": "1070002302032826408",
+            "name": "chat",
+            "animated": false
+          },
+          "role_ids": [],
+          "channel_ids": [
+            "962007075288916001"
+          ]
+        },
+        {
+          "id": "1070004843541954678",
+          "title": "Get Gud",
+          "description": "We have excellent teachers!",
+          "emoji": {
+            "id": null,
+            "name": "😀",
+            "animated": false
+          },
+          "role_ids": [
+            "982014491980083211"
+          ],
+          "channel_ids": []
         }
-    ],
-    "default_channel_ids": [
-        "998678771706110023",
-        "998678693058719784",
-        "1070008122577518632",
-        "998678764340912138",
-        "998678704446263309",
-        "998678683592171602",
-        "998678699715067986"
-    ],
-    "enabled": true
+      ],
+      "single_select": false,
+      "required": false,
+      "in_onboarding": true,
+      "type": 0
+    }
+  ],
+  "default_channel_ids": [
+    "998678771706110023",
+    "998678693058719784",
+    "1070008122577518632",
+    "998678764340912138",
+    "998678704446263309",
+    "998678683592171602",
+    "998678699715067986"
+  ],
+  "enabled": true
 }
 ```
 
@@ -720,9 +721,9 @@ Returns the [guild](#DOCS_RESOURCES_GUILD/guild-object) object for the given id.
 
 ###### Query String Params
 
-| Field        | Type    | Description                                                                   | Required | Default |
-|--------------|---------|-------------------------------------------------------------------------------|----------|---------|
-| with_counts? | boolean | when `true`, will return approximate member and presence counts for the guild | false    | false   |
+| Field        | Type                                             | Description                                                                   | Required | Default |
+|--------------|--------------------------------------------------|-------------------------------------------------------------------------------|----------|---------|
+| with_counts? | [boolean](#DOCS_REFERENCE/boolean-query-strings) | when `true`, will return approximate member and presence counts for the guild | false    | false   |
 
 ###### Example Response
 
@@ -867,7 +868,7 @@ Create a new [channel](#DOCS_RESOURCES_CHANNEL/channel-object) object for the gu
 | bitrate\*                          | integer                                                                        | the bitrate (in bits) of the voice or stage channel; min 8000                                                                                                                   | Voice, Stage                                   |
 | user_limit                         | integer                                                                        | the user limit of the voice channel                                                                                                                                             | Voice, Stage                                   |
 | rate_limit_per_user                | integer                                                                        | amount of seconds a user has to wait before sending another message (0-21600); bots, as well as users with the permission `manage_messages` or `manage_channel`, are unaffected | Text, Voice, Stage, Forum, Media               |
-| position                           | integer                                                                        | sorting position of the channel                                                                                                                                                 | All                                            |
+| position                           | integer                                                                        | sorting position of the channel (channels with the same position are sorted by id)                                                                                              | All                                            |
 | permission_overwrites\*\*          | array of partial [overwrite](#DOCS_RESOURCES_CHANNEL/overwrite-object) objects | the channel's permission overwrites                                                                                                                                             | All                                            |
 | parent_id                          | snowflake                                                                      | id of the parent category for a channel                                                                                                                                         | Text, Voice, Announcement, Stage, Forum, Media |
 | nsfw                               | boolean                                                                        | whether the channel is nsfw                                                                                                                                                     | Text, Voice, Announcement, Stage, Forum        |
@@ -895,12 +896,12 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field             | Type       | Description                                                                      |
-|-------------------|------------|----------------------------------------------------------------------------------|
-| id                | snowflake  | channel id                                                                       |
-| position?         | ?integer   | sorting position of the channel                                                  |
-| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category |
-| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                  |
+| Field             | Type       | Description                                                                        |
+|-------------------|------------|------------------------------------------------------------------------------------|
+| id                | snowflake  | channel id                                                                         |
+| position?         | ?integer   | sorting position of the channel (channels with the same position are sorted by id) |
+| lock_permissions? | ?boolean   | syncs the permission overwrites with the new parent, if moving to a new category   |
+| parent_id?        | ?snowflake | the new parent ID for the channel that is moved                                    |
 
 ## List Active Guild Threads % GET /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/threads/active
 
@@ -1142,10 +1143,10 @@ This endpoint takes a JSON array of parameters in the following format:
 
 ###### JSON Params
 
-| Field     | Type      | Description                  |
-|-----------|-----------|------------------------------|
-| id        | snowflake | role                         |
-| position? | ?integer  | sorting position of the role |
+| Field     | Type      | Description                                                                  |
+|-----------|-----------|------------------------------------------------------------------------------|
+| id        | snowflake | role                                                                         |
+| position? | ?integer  | sorting position of the role (roles with the same position are sorted by id) |
 
 ## Modify Guild Role % PATCH /guilds/{guild.id#DOCS_RESOURCES_GUILD/guild-object}/roles/{role.id#DOCS_TOPICS_PERMISSIONS/role-object}
 

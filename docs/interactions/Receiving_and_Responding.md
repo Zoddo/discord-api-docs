@@ -18,6 +18,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | application_id                 | snowflake                                                                                                                             | ID of the application this interaction is for                                                                                                                                                                                                                        |
 | type                           | [interaction type](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-type)                                   | Type of interaction                                                                                                                                                                                                                                                  |
 | data?\*                        | [interaction data](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-interaction-data)                                   | Interaction data payload                                                                                                                                                                                                                                             |
+| guild?                         | [partial guild](#DOCS_RESOURCES_GUILD/guild-object) object                                                                            | Guild that the interaction was sent from                                                                                                                                                                                                                             |
 | guild_id?                      | snowflake                                                                                                                             | Guild that the interaction was sent from                                                                                                                                                                                                                             |
 | channel?                       | [partial channel](#DOCS_RESOURCES_CHANNEL/channel-object) object                                                                      | Channel that the interaction was sent from                                                                                                                                                                                                                           |
 | channel_id?                    | snowflake                                                                                                                             | Channel that the interaction was sent from                                                                                                                                                                                                                           |
@@ -27,7 +28,7 @@ For [Message Components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) it includes ide
 | version                        | integer                                                                                                                               | Read-only property, always `1`                                                                                                                                                                                                                                       |
 | message?                       | [message](#DOCS_RESOURCES_CHANNEL/message-object) object                                                                              | For components, the message they were attached to                                                                                                                                                                                                                    |
 | app_permissions\*\*\*          | string                                                                                                                                | Bitwise set of permissions the app has in the source location of the interaction                                                                                                                                                                                     |
-| locale?\*\*\*                  | string                                                                                                                                | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                                                                                                                                                                                    |
+| locale?\*\*\*\*                | string                                                                                                                                | Selected [language](#DOCS_REFERENCE/locales) of the invoking user                                                                                                                                                                                                    |
 | guild_locale?                  | string                                                                                                                                | [Guild's preferred locale](#DOCS_RESOURCES_GUILD/guild-object), if invoked in a guild                                                                                                                                                                                |
 | entitlements                   | array of [entitlement](#DOCS_MONETIZATION_ENTITLEMENTS/entitlement-object) objects                                                    | For [monetized apps](#DOCS_MONETIZATION_OVERVIEW), any entitlements for the invoking user, representing access to premium [SKUs](#DOCS_MONETIZATION_SKUS)                                                                                                            |
 | authorizing_integration_owners | dictionary with keys of [application integration types](#DOCS_RESOURCES_APPLICATION/application-object-application-integration-types) | Mapping of installation contexts that the interaction was authorized for to related user or guild IDs. See [Authorizing Integration Owners Object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) for details |
@@ -208,22 +209,22 @@ There are a number of ways you can respond to an interaction:
 
 ###### Interaction Callback Type
 
-| Name                                    | Value | Description                                                                                                   |
-|-----------------------------------------|-------|---------------------------------------------------------------------------------------------------------------|
-| PONG                                    | 1     | ACK a `Ping`                                                                                                  |
-| CHANNEL_MESSAGE_WITH_SOURCE             | 4     | respond to an interaction with a message                                                                      |
-| DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE    | 5     | ACK an interaction and edit a response later, the user sees a loading state                                   |
-| DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state |
-| UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                |
-| APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                 |
-| MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                  |
-| PREMIUM_REQUIRED\*\*\*                  | 10    | respond to an interaction with an upgrade button, only available for apps with monetization enabled           |
+| Name                                    | Value | Description                                                                                                                                                                                            |
+|-----------------------------------------|-------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PONG                                    | 1     | ACK a `Ping`                                                                                                                                                                                           |
+| CHANNEL_MESSAGE_WITH_SOURCE             | 4     | respond to an interaction with a message                                                                                                                                                               |
+| DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE    | 5     | ACK an interaction and edit a response later, the user sees a loading state                                                                                                                            |
+| DEFERRED_UPDATE_MESSAGE\*               | 6     | for components, ACK an interaction and edit the original message later; the user does not see a loading state                                                                                          |
+| UPDATE_MESSAGE\*                        | 7     | for components, edit the message the component was attached to                                                                                                                                         |
+| APPLICATION_COMMAND_AUTOCOMPLETE_RESULT | 8     | respond to an autocomplete interaction with suggested choices                                                                                                                                          |
+| MODAL\*\*                               | 9     | respond to an interaction with a popup modal                                                                                                                                                           |
+| PREMIUM_REQUIRED\*\*\*                  | 10    | [**Deprecated**](#DOCS_CHANGE_LOG/premium-apps-new-premium-button-style-deep-linking-url-schemes); respond to an interaction with an upgrade button, only available for apps with monetization enabled |
 
 \* Only valid for [component-based](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) interactions
 
 \*\* Not available for `MODAL_SUBMIT` and `PING` interactions.
 
-\*\*\* Not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
+\*\*\* This response type is deprecated. Learn more about [migrating to premium buttons](#DOCS_MONETIZATION_APP_SUBSCRIPTIONS/gating-premium-interactions). `PREMIUM_REQUIRED` response type is not available for `APPLICATION_COMMAND_AUTOCOMPLETE` and `PING` interactions.
 
 ###### Interaction Callback Data Structure
 
@@ -263,7 +264,7 @@ Not all message fields are currently supported.
 | components | array of [components](#DOCS_INTERACTIONS_MESSAGE_COMPONENTS/) | between 1 and 5 (inclusive) components that make up the modal    |
 
 > warn
-> While interaction responses and followups are webhooks, they respect @everyone's ability to ping @everyone / @here . Nonetheless if your application responds with user data, you should still use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping. Other differences include the ability to send named links in the message content (`[text](url)`).
+> If your application responds with user data, you should use [`allowed_mentions`](#DOCS_RESOURCES_CHANNEL/allowed-mentions-object) to filter which mentions in the content actually ping.
 
 When responding to an interaction received **via webhook**, your server can simply respond to the received `POST` request. You'll want to respond with a `200` status code (if everything went well), as well as specifying a `type` and `data`, which is an [Interaction Response](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-response-object) object:
 
@@ -346,6 +347,9 @@ Edits the initial Interaction response. Functions the same as [Edit Webhook Mess
 Deletes the initial Interaction response. Returns `204 No Content` on success.
 
 ## Create Followup Message % POST /webhooks/{application.id#DOCS_RESOURCES_APPLICATION/application-object}/{interaction.token#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object}
+
+> info
+> Apps are limited to 5 followup messages per interaction if it was initiated from a user-installed app and isn't installed in the server (meaning the [authorizing integration owners object](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING/interaction-object-authorizing-integration-owners-object) only contains `USER_INSTALL`)
 
 Create a followup message for an Interaction. Functions the same as [Execute Webhook](#DOCS_RESOURCES_WEBHOOK/execute-webhook), but `wait` is always true. The `thread_id`, `avatar_url`, and `username` parameters are not supported when using this endpoint for interaction followups.
 
