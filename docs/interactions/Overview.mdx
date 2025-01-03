@@ -65,7 +65,7 @@ By default your app will receive interactions via a Gateway connection, but you 
 
 ### Configuring an Interactions Endpoint URL
 
-A **Interactions Endpoint URL** is a public endpoint for your app where Discord can send your app HTTP-based interactions. If your app is using [Gateway](#DOCS_TOPICS_GATEWAY)-based interactions, you don't need to configure an Interactions Endpoint URL.
+A **Interactions Endpoint URL** is a public endpoint for your app where Discord can send your app HTTP-based interactions. If your app is using [Gateway](#DOCS_EVENTS_GATEWAY)-based interactions, you don't need to configure an Interactions Endpoint URL.
 
 #### Setting Up an Endpoint
 
@@ -79,6 +79,9 @@ If either of these are not complete, your Interactions Endpoint URL will not be 
 ###### Acknowledging PING requests
 
 When adding your Interactions Endpoint URL, Discord will send a `POST` request with a `PING` payload with a `type: 1` to your endpoint. Your app is expected to acknowledge the request by returning a `200` response with a `PONG` payload (which has the same `type: 1`). Details about interaction responses are in the [Receiving and Responding documentation](#DOCS_INTERACTIONS_RECEIVING_AND_RESPONDING).
+
+> info
+> You must provide a valid `Content-Type` when responding to `PING`s. See [here](#DOCS_REFERENCE/http-api) for further information.
 
 <Collapsible title="Responding to PING Requests" description="Code example for acknowledging PING interactions" icon="code">
 To properly acknowledge a `PING` payload, return a `200` response with a payload of `type: 1`:
