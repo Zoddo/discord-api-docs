@@ -15,7 +15,7 @@ To use these components, you need to send the [message flag](/docs/resources/mes
 - The `content` and `embeds` fields will no longer work but you'll be able to use [Text Display](/docs/components/reference#text-display) and [Container](/docs/components/reference#container) as replacements
 - Attachments won't show by default - they must be exposed through components
 - The `poll` and `stickers` fields are disabled
-- A max of 10 top-level components and 30 total components in a message
+- Messages allow up to 40 total components
 
 :::info
 [Legacy component behavior](/docs/components/reference#legacy-message-component-behavior) will continue to work but provide less flexibility and control over the message layout.
@@ -97,32 +97,34 @@ Action Rows can contain:
 ###### Example
 
 ```json
-"components":
-[
-  {
-    "type": 1,
-    "components": [
-        {
-            "type": 2,
-            "label": "Accept",
-            "style": 1,
-            "custom_id": "click_yes"
-        },
-        {
-            "type": 2,
-            "label": "Learn More",
-            "style": 5,
-            "url": "http://watchanimeattheoffice.com/"
-        },
-        {
-            "type": 2,
-            "label": "Decline",
-            "style": 4,
-            "custom_id": "click_no"
-        }
-    ]
-  }
-]
+{
+  "flags": 32768
+  "components": [
+    {
+      "type": 1,
+      "components": [
+          {
+              "type": 2,
+              "label": "Accept",
+              "style": 1,
+              "custom_id": "click_yes"
+          },
+          {
+              "type": 2,
+              "label": "Learn More",
+              "style": 5,
+              "url": "http://watchanimeattheoffice.com/"
+          },
+          {
+              "type": 2,
+              "label": "Decline",
+              "style": 4,
+              "custom_id": "click_no"
+          }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of an Action Row with three buttons](images/components/action-row.png)
@@ -169,20 +171,22 @@ Buttons come in various styles to convey different types of actions. These style
 ###### Example
 
 ```json
-"components":
-[
-  {
-    "type": 1,
-    "components": [
-        {
-            "type": 2,
-            "label": "Click me!",
-            "style": 1,
-            "custom_id": "clicked_me"
-        },
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+          {
+              "type": 2,
+              "label": "Click me!",
+              "style": 1,
+              "custom_id": "clicked_me"
+          }
+      ]
+    }
+  ]
+}
 ```
 
 ###### Button Interaction
@@ -329,31 +333,34 @@ String Selects must be placed inside an [Action Row](/docs/components/reference#
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 3,
-    "custom_id": "string_select",
-    "placeholder": "Favorite bug?",
-    "options": [
-      {
-        "label": "Ant",
-        "value": "ant",
-        "description": "(best option)",
-        "emoji": {"name": "🐜"}
-      },
-      {
-        "label": "Butterfly",
-        "value": "butterfly",
-        "emoji": {"name": "🦋"}
-      },
-      {
-        "label": "Catarpillar",
-        "value": "caterpillar",
-        "emoji": {"name": "🐛"}
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 3,
+      "custom_id": "string_select",
+      "placeholder": "Favorite bug?",
+      "options": [
+        {
+          "label": "Ant",
+          "value": "ant",
+          "description": "(best option)",
+          "emoji": {"name": "🐜"}
+        },
+        {
+          "label": "Butterfly",
+          "value": "butterfly",
+          "emoji": {"name": "🦋"}
+        },
+        {
+          "label": "Catarpillar",
+          "value": "caterpillar",
+          "emoji": {"name": "🐛"}
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a String Select with three options](images/components/string-select.png)
@@ -665,18 +672,21 @@ User Selects must be placed inside an [Action Row](/docs/components/reference#ac
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 5,
-        "custom_id": "user_select",
-        "placeholder": "Select a user"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 5,
+          "custom_id": "user_select",
+          "placeholder": "Select a user"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a User Select with two people and an app in a server](images/components/user-select.png)
@@ -709,20 +719,23 @@ Role Selects must be placed inside an [Action Row](/docs/components/reference#ac
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 6,
-        "custom_id": "role_select",
-        "placeholder": "Which roles?",
-        "min_values": 1,
-        "max_values": 3
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 6,
+          "custom_id": "role_select",
+          "placeholder": "Which roles?",
+          "min_values": 1,
+          "max_values": 3
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Role Select allowing up to 3 choices](images/components/role-select.png)
@@ -755,18 +768,21 @@ Mentionable Selects must be placed inside an [Action Row](/docs/components/refer
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 7,
-        "custom_id": "mentionable_select",
-        "placeholder": "Who?"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 7,
+          "custom_id": "mentionable_select",
+          "placeholder": "Who?"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Mentionable Select](images/components/mentionable-select.png)
@@ -800,19 +816,22 @@ Channel Selects must be placed inside an [Action Row](/docs/components/reference
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 1,
-    "components": [
-      {
-        "type": 8,
-        "custom_id": "channel_select",
-        "channel_types": [0],
-        "placeholder": "Which text channel?"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 1,
+      "components": [
+        {
+          "type": 8,
+          "custom_id": "channel_select",
+          "channel_types": [0],
+          "placeholder": "Which text channel?"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Channel Select for text channels](images/components/channel-select.png)
@@ -833,12 +852,12 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ###### Section Structure
 
-| Field      | Type                                                                                                                  | Description                                                                                       |
-|------------|-----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| type       | integer                                                                                                               | `9` for section component                                                                         |
-| id?        | integer                                                                                                               | Optional identifier for component                                                                 |
-| components | array of [text display components](/docs/components/reference#text-display)                                           | One to three text components                                                                      |
-| accessory  | [thumbnail component](/docs/components/reference#thumbnail) or [button components](/docs/components/reference#button) | A thumbnail or a button component, with a future possibility of adding more compatible components |
+| Field      | Type                                                                                                                 | Description                                                                                       |
+|------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| type       | integer                                                                                                              | `9` for section component                                                                         |
+| id?        | integer                                                                                                              | Optional identifier for component                                                                 |
+| components | array of [text display components](/docs/components/reference#text-display)                                          | One to three text components                                                                      |
+| accessory  | [thumbnail component](/docs/components/reference#thumbnail) or [button component](/docs/components/reference#button) | A thumbnail or a button component, with a future possibility of adding more compatible components |
 
 :::info
 Don't hardcode `components` to contain only text components. We may add other components in the future. Similarly, `accessory` may be expanded to include other components in the future.
@@ -847,31 +866,34 @@ Don't hardcode `components` to contain only text components. We may add other co
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 9,
-    "components": [
-      {
-        "type": 10,
-        "content": "# Real Game v7.3"
-      },
-      {
-        "type": 10,
-        "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
-      },
-      {
-        "type": 10,
-        "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
-      }
-    ],
-    "accessory": {
-      "type": 11,
-      "media": {
-        "url": "https://websitewithopensourceimages/gamepreview.png"
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 9,
+      "components": [
+        {
+          "type": 10,
+          "content": "# Real Game v7.3"
+        },
+        {
+          "type": 10,
+          "content": "Hope you're excited, the update is finally here! Here are some of the changes:\n- Fixed a bug where certain treasure chests wouldn't open properly\n- Improved server stability during peak hours\n- Added a new type of gravity that will randomly apply when the moon is visible in-game\n- Every third thursday the furniture will scream your darkest secrets to nearby npcs"
+        },
+        {
+          "type": 10,
+          "content": "-# That last one wasn't real, but don't use voice chat near furniture just in case..."
+        }
+      ],
+      "accessory": {
+        "type": 11,
+        "media": {
+          "url": "https://websitewithopensourceimages/gamepreview.png"
+        }
       }
     }
-  }
-]
+  ]
+}
 ```
 
 ![Example of a Section showing a fake game changelog and a thumbnail](images/components/section.png)
@@ -897,12 +919,15 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 10,
-    "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spolier alert: ||these too!||"
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "# This is a Text Display\nAll the regular markdown rules apply\n- You can make lists\n- You can use `code blocks`\n- You can use [links](http://watchanimeattheoffice.com/)\n- Even :blush: :star_struck: :exploding_head:\n- Spolier alert: ||these too!||"
+    }
+  ]
+}
 ```
 
 ![Example of a Text Display with markdown](images/components/text-display.png)
@@ -960,36 +985,41 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 10,
-    "content": "Live webcam shots as of 18-04-2025 at 12:00 UTC"
-  },
-  {
-    "type": 12,
-    "items": [
-      {
-        "media": {"url": "https://livevideofeedconvertedtoimage/webcam1.png"},
-        "description": "An aerial view looking down on older industrial complex buildings. The main building is white with many windows and pipes running up the walls."
-      },
-      {
-        "media": {"url": "https://livevideofeedconvertedtoimage/webcam2.png"},
-        "description": "An aerial view of old broken buildings. Nature has begun to take root in the rooftops. A portion of the middle building's roof has collapsed inward. In the distant haze you can make out a far away city."
-      },
-      {
-        "media": {"url": "https://livevideofeedconvertedtoimage/webcam3.png"},
-        "description": "A street view of a downtown city. Prominently in photo are skyscrapers and a domed building"
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "Live webcam shots as of 18-04-2025 at 12:00 UTC"
+    },
+    {
+      "type": 12,
+      "items": [
+        {
+          "media": {"url": "https://livevideofeedconvertedtoimage/webcam1.png"},
+          "description": "An aerial view looking down on older industrial complex buildings. The main building is white with many windows and pipes running up the walls."
+        },
+        {
+          "media": {"url": "https://livevideofeedconvertedtoimage/webcam2.png"},
+          "description": "An aerial view of old broken buildings. Nature has begun to take root in the rooftops. A portion of the middle building's roof has collapsed inward. In the distant haze you can make out a far away city."
+        },
+        {
+          "media": {"url": "https://livevideofeedconvertedtoimage/webcam3.png"},
+          "description": "A street view of a downtown city. Prominently in photo are skyscrapers and a domed building"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a Media Gallery showing screenshots from live webcam feeds](images/components/media-gallery.png)
 
 ## File
 
-A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload. This is similar to the `embeds` field of a message but allows you to control the layout of your message by using this anywhere as a component. Files are only available in messages.
+A File is a top-level component that allows you to display an [uploaded file](/docs/components/reference#uploading-a-file) as an attachment to the message and reference it in the component. Each file component can only display 1 attached file, but you can upload multiple files and add them to different file components within your payload.
+
+Files are only available in messages.
 
 :::info
 To use this component, you need to send the [message flag](/docs/resources/message#message-object-message-flags) `1 << 15` (IS_COMPONENTS_V2) which can be activated on a per-message basis.
@@ -1007,32 +1037,35 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 10,
-    "content": "# New game version released for testing!"
-  },
-  {
-    "type": 10,
-    "content": "Grab the game here:"
-  },
-  {
-    "type": 13,
-    "file": {
-      "url": "attachment://game.zip"
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "# New game version released for testing!"
+    },
+    {
+      "type": 10,
+      "content": "Grab the game here:"
+    },
+    {
+      "type": 13,
+      "file": {
+        "url": "attachment://game.zip"
+      }
+    },
+    {
+      "type": 10,
+      "content": "Latest manual artwork here:"
+    },
+    {
+      "type": 13,
+      "file": {
+        "url": "attachment://manual.pdf"
+      }
     }
-  },
-  {
-    "type": 10,
-    "content": "Latest manual artwork here:"
-  },
-  {
-    "type": 13,
-    "file": {
-      "url": "attachment://manual.pdf"
-    }
-  }
-]
+  ]
+}
 ```
 
 ![Example of a File showing a download for a game and manual](images/components/file.png)
@@ -1059,28 +1092,31 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 10,
-    "content": "It's dangerous to go alone!"
-  },
-  {
-    "type": 14,
-    "divider": true,
-    "spacing": 1
-  },
-  {
-    "type": 10,
-    "content": "Take this."
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 10,
+      "content": "It's dangerous to go alone!"
+    },
+    {
+      "type": 14,
+      "divider": true,
+      "spacing": 1
+    },
+    {
+      "type": 10,
+      "content": "Take this."
+    }
+  ]
+}
 ```
 
 ![Example of a separator with large spacing dividing content](images/components/separator.png)
 
 ## Container
 
-A Container is a top-level layout component that holds up to 10 components. Containers are visually distinct from surrounding components and have an optional customizable color bar.
+A Container is a top-level layout component. Containers are visually distinct from surrounding components and have an optional customizable color bar.
 
 Containers are only available in messages.
 
@@ -1090,64 +1126,67 @@ To use this component, you need to send the [message flag](/docs/resources/messa
 
 ###### Container Structure
 
-| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                           |
-|---------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                          |
-| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                                     |
-| components    | array of components | Up to 10 components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
-| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                            |
-| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                                      |
+| Field         | Type                | Description                                                                                                                                                                                                                                                                                                                                  |
+|---------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| type          | integer             | `17` for container component                                                                                                                                                                                                                                                                                                                 |
+| id?           | integer             | Optional identifier for component                                                                                                                                                                                                                                                                                                            |
+| components    | array of components | Components of the type [action row](/docs/components/reference#action-row), [text display](/docs/components/reference#text-display), [section](/docs/components/reference#section), [media gallery](/docs/components/reference#media-gallery), [separator](/docs/components/reference#separator), or [file](/docs/components/reference#file) |
+| accent_color? | ?integer            | Color for the accent on the container as RGB from `0x000000` to `0xFFFFFF`                                                                                                                                                                                                                                                                   |
+| spoiler?      | boolean             | Whether the container should be a spoiler (or blurred out). Defaults to `false`.                                                                                                                                                                                                                                                             |
 
 ###### Example
 
 ```json
-"components": [
-  {
-    "type": 17,
-    "accent_color": 703487,
-    "components": [
-      {
-        "type": 10,
-        "content": "# You have encountered a wild coyote!"
-      },
-      {
-        "type": 12,
-        "items": [
-          {
-            "media": {"url": "https://websitewithopensourceimages/coyote.png"},
-          }
-        ]
-      },
-      {
-        "type": 10,
-        "content": "What would you like to do?"
-      },
-      {
-        "type": 1,
-        "components": [
-          {
-            "type": 2,
-            "custom_id": "pet_coyote",
-            "label": "Pet it!",
-            "style": 1
-          },
-          {
-            "type": 2,
-            "custom_id": "feed_coyote",
-            "label": "Attempt to feed it",
-            "style": 2
-          },
-          {
-            "type": 2,
-            "custom_id": "run_away",
-            "label": "Run away!",
-            "style": 4
-          }
-        ]
-      }
-    ]
-  }
-]
+{
+  "flags": 32768,
+  "components": [
+    {
+      "type": 17,
+      "accent_color": 703487,
+      "components": [
+        {
+          "type": 10,
+          "content": "# You have encountered a wild coyote!"
+        },
+        {
+          "type": 12,
+          "items": [
+            {
+              "media": {"url": "https://websitewithopensourceimages/coyote.png"},
+            }
+          ]
+        },
+        {
+          "type": 10,
+          "content": "What would you like to do?"
+        },
+        {
+          "type": 1,
+          "components": [
+            {
+              "type": 2,
+              "custom_id": "pet_coyote",
+              "label": "Pet it!",
+              "style": 1
+            },
+            {
+              "type": 2,
+              "custom_id": "feed_coyote",
+              "label": "Attempt to feed it",
+              "style": 2
+            },
+            {
+              "type": 2,
+              "custom_id": "run_away",
+              "label": "Run away!",
+              "style": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ![Example of a container showing text, image, and buttons for a wild enemy encounter](images/components/container.png)
@@ -1171,6 +1210,10 @@ To upload a file with your message, you'll need to send your payload as `multipa
 Before the introduction of the `IS_COMPONENTS_V2` flag ([see changelog](/docs/change-log/2025-04-22-components-v2)), message components were sent in conjunction with message content. This means that you could send a message using a subset of the available components without setting the `IS_COMPONENTS_V2` flag, and the components would be included in the message content along with `content` and `embeds`.
 
 Apps using this Legacy Message Component behavior will continue to work as expected, but it is recommended to use the new `IS_COMPONENTS_V2` flag for new apps or features as they offer more options for layout and customization.
+
+:::info
+Legacy messages allow up to 5 action rows as top-level components
+:::
 
 Legacy Message Component Example
 
